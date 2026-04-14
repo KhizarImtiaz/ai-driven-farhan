@@ -23,29 +23,35 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup GitHub Pages
+      # 2. Setup GitHub Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # 3. Setup Node (NO CACHE → avoids lock file error)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
+      # 4. Install dependencies (safe for broken deps)
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      # 5. Build project
       - name: Build project
         run: npm run build
 
+      # 6. Upload build output (Vite → dist)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
+      # 7. Deploy
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
