@@ -3,7 +3,7 @@ name: Deploy React JSX App
 on:
   push:
     branches:
-      - main   # runs when you push code
+      - main
 
 permissions:
   contents: read
@@ -18,10 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5   # ✅ IMPORTANT
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -32,7 +36,7 @@ jobs:
       - name: Upload build files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist   # 👈 for Vite (your case)
+          path: ./dist   # ⚠️ change to ./build if not using Vite
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
