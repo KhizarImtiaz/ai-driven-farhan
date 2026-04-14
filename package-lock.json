@@ -1,3 +1,14 @@
-"scripts": {
-  "build": "vite build"
+{
+  "name": "ai-driven-farhan",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
 }
